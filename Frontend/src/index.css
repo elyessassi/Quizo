@@ -1,0 +1,20 @@
+
+
+@import "tailwindcss";
+
+@font-face {
+    font-family: irishGrover;
+    src: url("../src/fonts/IrishGroverRegular.ttf");
+}
+
+@font-face {
+    font-family: Billabong;
+    src: url("../src/fonts/Billabong.otf");
+}
+
+@theme{
+  --font-Billabong: Billabong, sans-serif;
+  --font-IrishGrover: irishGrover, sans-serif;
+}
+
+
