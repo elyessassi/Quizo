@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -16,23 +16,49 @@ import { Route ,Routes } from 'react-router-dom'
 import MainPage from './pages/MainPage';
 import SmallQuiz from './components/SmallQuiz'
 import Success from './components/Success'
+import ProfilePage from './pages/ProfilePage'
 
 
-
-
+let LoginPortal = createContext()
 function App() {
   const [count, setCount] = useState(0)
+  const [isLoggedin, setIsLoggedin] = useState(CheckLogin())  
 
   return (
     <>
+
+      <LoginPortal.Provider value={{isLoggedin: isLoggedin, setIsLoggedin: setIsLoggedin}}>
       <Routes>
         <Route path="/login" element={<LoginPage></LoginPage>}></Route>
         <Route path="/" element={<WelcomePage></WelcomePage>}></Route>
         <Route path="/signup" element={<SignupPage></SignupPage>}></Route>
         <Route path='/Home' element={<MainPage></MainPage>}></Route>
+        <Route path='/Profile' element={<ProfilePage ></ProfilePage>}></Route>
       </Routes>
+      </LoginPortal.Provider>
     </>
   )
 }
 
+
+function CheckLogin(){
+  let allCookies = document.cookie
+  let CookiesList = allCookies.split(";")
+  for (let i = 0; i < CookiesList.length; i++){
+    if (CookiesList[i].startsWith("accessToken")){
+      if (CookiesList[i].length > 12){
+        return(true)
+      }
+      else{
+        return(false)
+      }
+    }
+  }
+  return(false)
+
+}
+
+
 export default App
+export {LoginPortal}
+

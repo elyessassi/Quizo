@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router-dom"
+import { LoginPortal } from "../App"
+import { useContext } from "react"
 
 function AuthButton({name, Values, setError ,isLogin, setShowSuccess}){
     let navigate = useNavigate()
+    let items = useContext(LoginPortal)
 
     async function SendSignUpReq(Values ,setError, setShowSuccess){
         let result = await fetch("http://localhost:5001/signup", {
@@ -19,6 +22,7 @@ function AuthButton({name, Values, setError ,isLogin, setShowSuccess}){
             console.log(data.accessToken)
             setShowSuccess(true)
             document.cookie = `accessToken=${data.accessToken}`
+            items.setIsLoggedin(true)
             navigate("/Home")
         }
     }
@@ -40,6 +44,7 @@ function AuthButton({name, Values, setError ,isLogin, setShowSuccess}){
             console.log(data.accessToken)
             setShowSuccess(true)
             document.cookie = `accessToken=${data.accessToken}`
+            items.setIsLoggedin(true)
             navigate("/Home")
         }
     }
