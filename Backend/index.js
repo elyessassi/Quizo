@@ -6,6 +6,7 @@ import loginRoute from "./routes/login.js"
 import signupRoute from "./routes/signup.js"
 import { VerifyAccessToken } from "./routes/secretToken.js"
 import cors from "cors"
+import profileRoute from "./routes/profile.js"
 
 dotenv.config()
 
@@ -23,12 +24,10 @@ app.listen(5001, () => {
     createDB()
 })
 
-app.get("/test", VerifyAccessToken,(req, res) => {
-    res.send("hello bro")
-} )
 
 app.use("/", loginRoute)
 app.use("/", signupRoute)
+app.use("/", profileRoute)
 
 
 

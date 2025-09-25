@@ -13,13 +13,13 @@ signupRoute.post("/signup", async (req, res) => {
         return
     }
     check = await HandleEmail(email)
-    if ( check != true){
-        res.status(check.status).json(check.message)
+    if (check != true){
+        res.status(check.status).json({success:check.success, message:check.message})
         return
     }
     check = HandlePassword(password, confirmPassword)
     if (check != true){
-        res.status(check.status).json(check.message)
+        res.status(check.status).json({success:check.success, message:check.message})
         return
     }
     let newUser = new User({email, password, username})
