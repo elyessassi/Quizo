@@ -17,6 +17,8 @@ import MainPage from './pages/MainPage';
 import SmallQuiz from './components/SmallQuiz'
 import Success from './components/Success'
 import ProfilePage from './pages/ProfilePage'
+import AboutPage from './pages/AboutPage'
+import QuizPage from './pages/QuizPage'
 
 
 let LoginPortal = createContext()
@@ -26,7 +28,6 @@ function App() {
 
   return (
     <>
-
       <LoginPortal.Provider value={{isLoggedin: isLoggedin, setIsLoggedin: setIsLoggedin}}>
       <Routes>
         <Route path="/login" element={<LoginPage></LoginPage>}></Route>
@@ -34,6 +35,8 @@ function App() {
         <Route path="/signup" element={<SignupPage></SignupPage>}></Route>
         <Route path='/Home' element={<MainPage></MainPage>}></Route>
         <Route path='/Profile' element={<ProfilePage ></ProfilePage>}></Route>
+        <Route path='/Aboutus' element={<AboutPage></AboutPage>}></Route>
+        <Route path="/QuizPage/:id" element={<QuizPage></QuizPage>}></Route>
       </Routes>
       </LoginPortal.Provider>
     </>

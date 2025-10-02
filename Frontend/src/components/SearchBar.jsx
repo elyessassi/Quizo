@@ -8,7 +8,7 @@ function SearchBar(){
 
     return(
         <>
-            <div className="flex">
+            <div className="flex h-[48px]">
             <form className=" w-[18.75rem] mr-[2rem]">
                     <div className="bg-[#D9D9D9] rounded-[1.5625rem] w-[18.75rem] flex items-center outline-4 outline outline-[#5D688A]">
                         <input type="text" title="title_name" onChange={CrossState} placeholder="Search for Quizes" className="outline-hidden h-[3rem] w-[16.5rem] rounded-[1.5625rem] bg-[#D9D9D9]  text-[1rem] p-[1rem] focus:placeholder:text-transparent caret-[#5D688A]"></input>

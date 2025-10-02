@@ -11,12 +11,10 @@ function SignupPage(){
     let [password, setPassword] = useState("")
     let [confirm, setConfirm] = useState("")
     let [error, setError] = useState("")
-    let [showSuccess, setShowSuccess] = useState(false)
 
     return(
         <>
             <Navbar></Navbar>
-            {showSuccess ? <Success isLogin={false}></Success> : null}
             <div className="h-[55.625rem] flex flex-col items-center justify-center">
                 <TextField label={"Username"} value={username} setValue={setUsername}></TextField>
                 <div className="h-[2.625rem]"></div>
@@ -28,7 +26,7 @@ function SignupPage(){
                 <div className="h-[2rem]"></div>
                 <p className="text-red-700 font-IrishGrover">{error}</p>
                 <div className="h-[2rem]"></div>
-                <AuthButton name={"Sign Up"} Values={{username: username, email:email, password:password, confirmPassword:confirm}} setError={setError} isLogin={false} setShowSuccess={setShowSuccess}></AuthButton>
+                <AuthButton name={"Sign Up"} Values={{username: username, email:email, password:password, confirmPassword:confirm}} setError={setError} isLogin={false}></AuthButton>
             </div>
             <Footer></Footer>
         </>

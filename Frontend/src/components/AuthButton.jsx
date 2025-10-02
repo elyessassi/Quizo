@@ -15,6 +15,7 @@ function AuthButton({name, Values, setError ,isLogin, setShowSuccess}){
             body : JSON.stringify(Values)
         })
         let data = await result.json()
+        console.log(data)
         if (result.status != 200){
             setError(data.message)
         }

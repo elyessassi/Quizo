@@ -9,12 +9,10 @@ function LoginPage(){
     let [email, setEmail] = useState("")
     let [password, setPassword] = useState("")
     let [error, setError] = useState("")
-    let [showSuccess, setShowSuccess] = useState(false)
 
     return(
         <>
             <Navbar></Navbar>
-            {showSuccess ? <Success isLogin={true}></Success> : null}
             <div className="h-[38.625rem] flex flex-col items-center justify-center">
                 <div className="flex flex-col justify-center items-center">
                     <TextField label={"Email"} value={email} setValue={setEmail}></TextField>
@@ -23,7 +21,7 @@ function LoginPage(){
                     <div className="h-[2rem]"></div>
                     <p className="text-red-700 font-IrishGrover">{error}</p>
                     <div className="h-[2rem]"></div>
-                    <AuthButton name={"Login"} Values={{email: email, password:password}} isLogin={true} setError={setError} setShowSuccess={setShowSuccess}></AuthButton>
+                    <AuthButton name={"Login"} Values={{email: email, password:password}} isLogin={true} setError={setError}></AuthButton>
                 </div>
             </div>
             <Footer></Footer>

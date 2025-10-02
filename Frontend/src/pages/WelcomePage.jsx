@@ -1,12 +1,14 @@
 import Navbar from "../components/Nabvar"
 import Footer from "../components/Footer"
 import Button from "../components/Button"
+import Modal from "../components/Modal"
 
 
 function WelcomePage(){
 
     return(
         <>
+            
             <Navbar></Navbar>
             <section>
                 <div className="h-[50.625rem] bg-[#FFF2EF] w-screen z-10 lg:h-[37.625rem] text-center flex justify-center items-center">
