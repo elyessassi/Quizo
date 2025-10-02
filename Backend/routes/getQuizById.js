@@ -6,9 +6,9 @@ import Quiz from "../models/Quiz.js"
 
 let getQuizbyidRoute = express.Router()
 
-getQuizbyidRoute.post("/getquizbyid", async (req, res) => {
-    let id = req.id
-    let quiz = await Quiz.findById({id})
+getQuizbyidRoute.get("/getquizbyid", async (req, res) => {
+    let {id} = req.query
+    let quiz = await Quiz.findById(id)
     res.status(200).send(quiz)   
 })
 
