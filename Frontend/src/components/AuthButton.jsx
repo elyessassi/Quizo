@@ -21,7 +21,6 @@ function AuthButton({name, Values, setError ,isLogin, setShowSuccess}){
         }
         else{
             console.log(data.accessToken)
-            setShowSuccess(true)
             document.cookie = `accessToken=${data.accessToken}`
             items.setIsLoggedin(true)
             navigate("/Home")
@@ -43,7 +42,6 @@ function AuthButton({name, Values, setError ,isLogin, setShowSuccess}){
         }
         else{
             console.log(data.accessToken)
-            setShowSuccess(true)
             document.cookie = `accessToken=${data.accessToken}`
             items.setIsLoggedin(true)
             navigate("/Home")
