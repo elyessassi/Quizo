@@ -1,11 +1,14 @@
 import express from "express"
 import { VerifyAccessToken } from "./secretToken.js"
+import User from "../models/User.js"
+
 
 let ProfileRoute = express.Router()
 
-ProfileRoute.post("/profile", VerifyAccessToken, (req, res) => {
-    console.log(req.id)
-    res.status(200).send(req.id)
+ProfileRoute.get("/profile", VerifyAccessToken, async (req, res) => {
+    let user = await User.findById(req.id)
+    res.status(200).send(user)
+    
 })
 
 export default ProfileRoute

@@ -17,11 +17,9 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    quizes: {
-        type: [String]
-    },
-    bio: {
-        type: String
+    quizesCreated: {
+        type: [mongoose.Schema.ObjectId],
+        default: []
     },
     createdAt: {
         type: Date,
@@ -30,6 +28,10 @@ const userSchema = new mongoose.Schema({
     photo: {
         type: String,
         default: "https://res.cloudinary.com/dbzf7odr6/image/upload/v1758298532/download_pjyusj.webp"
+    },
+    recentlyPlayed: {
+        type: [mongoose.Schema.ObjectId],
+        default: [] 
     }
 })
 
