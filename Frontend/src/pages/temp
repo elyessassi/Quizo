@@ -2,7 +2,7 @@ import Navbar from "../components/Nabvar";
 import Footer from "../components/Footer";
 import { getCookieValue } from "../utils";
 import { createElement, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Button from "../components/Button";
 import Typewriter from 'typewriter-effect';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
@@ -13,7 +13,6 @@ import ProgressBar from "../components/quizpage/ProgressBar";
 
 function QuizPage(){
 
-    let navigate = useNavigate()
     let [countdownNum, setCountdownNum] = useState(3)
     let [scale, setScale] = useState(20)
     let [transition, setTransition] = useState(false)
@@ -28,37 +27,20 @@ function QuizPage(){
     let [confirmButtonLabel, setConfirmButtonLabel] = useState("Confirm")
     let [startTimer, setStartTimer] = useState(false)
     let [isResultPage, setIsResultPage] = useState(false)
-    let [showScoreSlide, setShowScoreSlide] = useState(false) // shows Score Slide if true
-    let [blurElement, setBlurElement] = useState(false) // blurrs element when true
-    let [disableQuizButton, setDisableQuizButton] = useState(false) // disables quiz button
-    let [disableConfirmButton, setDisableConfirmButton] = useState(true) // disables confirmation button
-    let [pageLoaded, setPageLoaded] = useState(true)
 
-    let correctAnswer = quizObject.questions?.[`Slide${questionNumber}`].CorrectAnswer
+    const correctAnswer = quizObject.questions?.[`Slide${questionNumber}`].CorrectAnswer
     let {id} = useParams()
-
-
-    useEffect(() => {
-        if (quizObject?.slidesNum != undefined){
-            setPageLoaded(true)
-        }
-    }, [quizObject])
 
     useEffect(() => {
         document.body.classList.add("overflow-hidden")
-        document.body.classList.add("bg-[#374060]")
-        
 
-        return (() => {document.body.classList.remove("overflow-hidden"); document.body.classList.remove("bg-[#374060]")})
+        return (() => {document.body.classList.remove("overflow-hidden")})
     })
 
     useEffect(() => {
-            if (timer != 0 && startTimer && !isResultPage){
+            if (timer != 0 && startTimer){
                 setTimeout(() => {setTimer(timer - 1)}, 1000)
-            }
-            if (timer == 0){
-                checkAnswers()
-            }
+            }        
     }, [timer, startTimer])
     
     useEffect(() => {
@@ -80,9 +62,9 @@ function QuizPage(){
 
     useEffect(() => {
         setAnswers(getAnswers(questionNumber))
-    }, [hideCountdown, questionNumber])
+    }, [hideCountdown])
 
-    // radomises answers placements
+    
     function getAnswers(questionNumber){
         let theArray = []
         theArray.push(quizObject.questions?.[`Slide${questionNumber}`].CorrectAnswer)
@@ -99,7 +81,6 @@ function QuizPage(){
         return(theArray)
     }
 
-    // this is for the ripple effect in the answers buttons
     function handleQuizButtonClick(e) {
         let x = e.clientX - e.currentTarget.offsetLeft
         let y = e.clientY - e.currentTarget.offsetTop
@@ -111,78 +92,38 @@ function QuizPage(){
         e.currentTarget.appendChild(ripple)
         setTimeout(() => {ripple.remove()}, 600)
         setConfirmButtonExtraProperties("animate-fadeIn")
-        setDisableConfirmButton(false)
     }
 
-    function checkAnswers() {
-        if (selectedButtonValue == null){
-            setIsResultPage(true)
-            setConfirmButtonLabel("Next")
-            setConfirmButtonExtraProperties("animate-fadeIn")
-            setDisableConfirmButton(false)
-            setDisableQuizButton(true)
-        }
+    function handleConfirmButtonClick() {
         if (selectedButtonValue != null && !isResultPage) {
-            if (selectedButtonValue == correctAnswer){
-                setTotalScore(totalScore + 1)
-            }
             setIsResultPage(true)
-            setConfirmButtonLabel("Next")
-            setDisableQuizButton(true)
-        }
-        if (isResultPage){
-            if (questionNumber != quizObject.slidesNum){
-                setConfirmButtonExtraProperties("opacity-0")
-                setQuestiobNumber(questionNumber + 1)
-                setTimer(15)
-                setIsResultPage(false)
-                setSelectedButtonValue(null)
-                setConfirmButtonLabel("Confirm")
-                setDisableConfirmButton(true)
-                setDisableQuizButton(false)
-                 
-            }
-            else {
-                setShowScoreSlide(true)
-                setBlurElement(true)
-                setDisableConfirmButton(true)
-            }
         }
     }
 
-
-    // handling the state when the down most button is active
     function handleQuizButtonState(answer, correctAnswer, isResultPage, selectedButtonValue){
         if (isResultPage && answer == correctAnswer){
             return("correct")
         }
         if (isResultPage && answer != correctAnswer && answer == selectedButtonValue){
-            return("wrong")
+            return("wrrong")
         }
         else {
             return("normal")
         }
     }
 
-    if (quizObject.slidesNum == undefined){
-        return(<div className="flex justify-center items-center bg-white h-[100vh] w-[100vw]"><img src="src/assets/spinner.svg"></img></div>)
-    }
+
+
 
     return(
         <>
             <style>
             </style>
-            <div className={`w-[60vw] h-[30vh] rounded-lg flex flex-col justify-evenly items-center absolute left-[20vw] -top-[30vh] z-5 bg-white  ${showScoreSlide ? "animate-scoreSlide" : ""}`}>
-                <p>Your total score:</p>
-                <p>{`${totalScore} / ${quizObject.slidesNum}`}</p>
-                <Button onClick={() => {navigate("/Home")}} name={"Done"}></Button>
-            </div> {/** Score Slide */}
-            
-            <div className={`h-[100vh]  flex justify-evenly items-center ${blurElement ? "animate-blur-animation" : ""} flex-col -m-4`} id="main" >
-                <div className={`w-[200vw] aspect-square bg-[#5D688A]  rounded-full absolute top-[-120vw] md:top-[-170vw] left-[-50vw]  origin-center`}></div> {/** semi cercle */}
+            <div className="w-[200vw] aspect-square bg-[#5D688A]  rounded-full absolute top-[-120vw] md:top-[-170vw] left-[-50vw]  origin-center"></div> {/** semi cercle */}
+            <div className="h-[100vh] bg-[#374060] flex justify-evenly items-center flex-col" id="main">
                 <div className="z-10 w-[80vw] md:w-[45vw] h-[15vh] origin-center">
                     <div className="w-full h-[70%] flex justify-between items-center">
-                        <BackButton onClick={() => {navigate('/Home')}}></BackButton>
+                        <BackButton></BackButton>
                         <div className="text-white">{`${questionNumber} of ${quizObject.slidesNum}`}</div>
                         <Timer time={timer}></Timer>
                     </div>
@@ -193,11 +134,12 @@ function QuizPage(){
                 <div className="h-[65vh] w-[80vw] bg-white z-2 rounded-4xl flex justify-center   items-center shadow-md max-w-[785px]">
                     <div className={`text-black text-9xl  ${hideCountdown ? "hidden" : ""}`} style={{transform: `scale(${scale / 100})`, transition: transition ? "none" : "transform 0.7s ease", transformOrigin: "center center"}}>{countdownNum}</div>
                     <div className={`flex flex-col w-[75%] h-full justify-around items-center ${hideCountdown ? "" : "hidden" }`}>
-                        <div className="text-black text-xl z-3">{quizObject.questions && startTimer && <Typewriter key={questionNumber} onInit={(typewriter) => {typewriter.typeString(`${quizObject.questions?.[`Slide${questionNumber}`].Question}`).start()}} options={{cursor: "", delay: 50}}></Typewriter>}</div>
-                        <div className={`flex justify-evenly w-[75%] h-[50%] flex-wrap items-evenly` }>{answers.map((answer) => <QuizButton label={answer} onclick={handleQuizButtonClick} disabled={disableQuizButton} state={handleQuizButtonState(answer, correctAnswer, isResultPage, selectedButtonValue)} setSelectedButtonValue={setSelectedButtonValue} quizButtonExtraProperties={selectedButtonValue != null && selectedButtonValue != answer ? "animate-buttonFadeOut" : ""}></QuizButton>)}</div>
+                        <div className="text-black text-xl z-3">{quizObject.questions && <Typewriter onInit={(typewriter) => {typewriter.pauseFor(4000).typeString(`${quizObject.questions?.[`Slide${questionNumber}`].Question}`).start()}} options={{cursor: "", delay: 50}}></Typewriter>}</div>
+                        <div className={`flex justify-evenly w-[75%] h-[50%] flex-wrap items-evenly` }>{answers.map((answer) => <QuizButton label={answer} onclick={handleQuizButtonClick} state={"normal"} setSelectedButtonValue={setSelectedButtonValue} quizButtonExtraProperties={selectedButtonValue != null && selectedButtonValue != answer ? "animate-buttonFadeOut" : ""}></QuizButton>)}</div>
                     </div>
                 </div> {/** quiz area*/}
-                <Button className={confirmButtonExtraProperties} name={confirmButtonLabel} onClick={checkAnswers} disabled={disableConfirmButton}></Button>
+                <Button className={confirmButtonExtraProperties} name={confirmButtonLabel}></Button>
+                <button onClick={() => {console.log(selectedButtonValue)}}>hello</button>
             </div>
             
         </>

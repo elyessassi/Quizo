@@ -4,8 +4,65 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <title>Quizo</title>
   </head>
+  <style>
+          @keyframes check {
+              0% {opacity: 0;}
+              100% {opacity: 1;}
+          }
+
+          @keyframes ripple {
+              0% {opacity: 1; transform: scale(1)}
+              100% {opacity : 0; transform: scale(50)}
+          }
+
+          @keyframes fadeIn {
+            0% {opacity: 0;}
+            100% {opacity: 1;}
+          }
+
+          @keyframes fadeOut {
+            0% {opacity: 1;}
+            100% {opacity: 0;}
+          }
+
+          @keyframes buttonFadeOut {
+            0% {opacity: 1;}
+            100% {opacity: 0.4;}
+          }
+
+          @keyframes scoreSlide{
+            0% {transform: translateY(-30vh);}
+            100% {transform: translateY(65vh)}
+          }
+
+          @keyframes blur-animation {
+            0% {filter: blur(0px);}
+            100% {filter: blur(10px);}
+          }
+
+          .animate-fadeIn {
+            animation: fadeIn 500ms ease-in-out forwards;
+          }
+
+          .animate-fadeOut {
+            animation: fadeOut 500ms ease-in-out forwards;
+          }
+
+          .animate-buttonFadeOut{
+            animation: buttonFadeOut 200ms ease-in-out forwards;
+          }
+
+          .animate-scoreSlide{
+            animation: scoreSlide 850ms ease-in-out forwards;
+          }
+
+          .animate-blur-animation {
+            animation: blur-animation 2000ms ease-in-out forwards;
+          }
+
+  </style>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
