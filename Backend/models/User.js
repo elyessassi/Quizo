@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 import bcrypt from "bcrypt"
 
-const userSchema = new mongoose.Schema({
+export const userSchema = new mongoose.Schema({
     username:{
         type: String,
         required: true,
@@ -27,12 +27,12 @@ const userSchema = new mongoose.Schema({
     },
     photo: {
         type: String,
-        default: "https://res.cloudinary.com/dbzf7odr6/image/upload/v1758298532/download_pjyusj.webp"
+        default: "https://ibb.co/gFrcZzJX"
     },
     recentlyPlayed: {
         type: [mongoose.Schema.ObjectId],
         default: [] 
-    }
+    },
 })
 
 

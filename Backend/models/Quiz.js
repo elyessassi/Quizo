@@ -6,9 +6,10 @@ const quizSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    quizCreator:{
-        type: String,
-        required: true,
+    userModel: {
+        type: mongoose.Schema.ObjectId,
+        default: [],
+        ref: "User"
     },
     slidesNum: {
         type: Number,
@@ -21,6 +22,14 @@ const quizSchema = new mongoose.Schema({
     questions: {
         type: Object,
         required: true
+    },
+    img : {
+        type : String,
+        required: true
+    },
+    filters: {
+        type: [String],
+        default: []
     }
 })
 

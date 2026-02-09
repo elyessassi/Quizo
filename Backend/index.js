@@ -11,14 +11,18 @@ import profileRoute from "./routes/profile.js"
 import {v2 as Cloudinary} from "cloudinary"
 import getQuizzesRoute from "./routes/getAllQuizzes.js"
 import getQuizbyidRoute from "./routes/getQuizById.js"
+import searchRoute from "./routes/search.js"
 
 dotenv.config()
 
 const app = express()
 app.use(cors({
     origin : "http://localhost:5173",
-    credentials: true
+    credentials: true,
+    methods : ["GET", "POST", "DELETE", "OPTIONS"]
 }))
+
+
 
 app.use(express.json())
 
@@ -35,6 +39,7 @@ app.use("/", profileRoute)
 app.use("/", createQuizRoute)
 app.use("/", getQuizzesRoute)
 app.use("/", getQuizbyidRoute)
+app.use('/', searchRoute)
 
 
 
