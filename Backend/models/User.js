@@ -27,7 +27,7 @@ export const userSchema = new mongoose.Schema({
     },
     photo: {
         type: String,
-        default: "https://ibb.co/gFrcZzJX"
+        default: "https://i.ibb.co/HpY5pbDY/1770581090345-fixedav-png.png"
     },
     recentlyPlayed: {
         type: [mongoose.Schema.ObjectId],

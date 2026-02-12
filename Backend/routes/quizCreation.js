@@ -2,6 +2,7 @@ import express from "express"
 import { VerifyAccessToken } from "./secretToken.js"
 import User from "../models/User.js"
 import Quiz from "../models/Quiz.js"
+import Filter from "../models/Filter.js"
 
 
 let createQuizRoute = express.Router()
@@ -20,6 +21,21 @@ createQuizRoute.post("/createQuiz", VerifyAccessToken, async (req, res) => {
     newQuiz.save()
     user.quizesCreated.push(newQuiz)
     user.save()
+    // handling filter model
+    if (Filters.length != 0){
+        for (let i = 0; i < Filters.length; i++){
+            let checkFilter = await Filter.findOne({"filterName": Filters[i]})
+            if (checkFilter){
+                checkFilter.numberOfOcc = checkFilter.numberOfOcc + 1
+                await checkFilter.save()
+            }
+            else {
+                let temp = new Filter({"filterName": Filters[i], "numberOfOcc": 1})
+                temp.save()
+            }
+        }
+    }
+
 })
 
 

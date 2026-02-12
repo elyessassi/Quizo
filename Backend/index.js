@@ -4,7 +4,6 @@ import express from "express"
 import dotenv from "dotenv"
 import loginRoute from "./routes/login.js"
 import signupRoute from "./routes/signup.js"
-import { VerifyAccessToken } from "./routes/secretToken.js"
 import createQuizRoute from "./routes/quizCreation.js"
 import cors from "cors"
 import profileRoute from "./routes/profile.js"
@@ -12,6 +11,7 @@ import {v2 as Cloudinary} from "cloudinary"
 import getQuizzesRoute from "./routes/getAllQuizzes.js"
 import getQuizbyidRoute from "./routes/getQuizById.js"
 import searchRoute from "./routes/search.js"
+import getFiltersRoute from "./routes/getFilter.js"
 
 dotenv.config()
 
@@ -40,6 +40,7 @@ app.use("/", createQuizRoute)
 app.use("/", getQuizzesRoute)
 app.use("/", getQuizbyidRoute)
 app.use('/', searchRoute)
+app.use("/", getFiltersRoute)
 
 
 
