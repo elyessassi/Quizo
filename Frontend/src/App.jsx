@@ -26,11 +26,13 @@ import QuizButton from './components/quizpage/QuizButton'
 import Quiz from './components/Quiz'
 import FilterElem from './components/FilterElem'
 import QuizFilters from './components/QuizFilters'
+import FiltersDropDown from './components/FiltersDropDown'
 
 let LoginPortal = createContext()
 function App() {
   const [count, setCount] = useState(0)
   const [isLoggedin, setIsLoggedin] = useState(CheckLogin())  
+
 
   return ( 
     <>
@@ -48,6 +50,7 @@ function App() {
     </>    
 
   )
+
 }
 
 

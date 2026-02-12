@@ -9,7 +9,7 @@ function MainPage(){
 
     let [searchBarValue, setSearchBarValue] = useState("")
     let [allQuizzes, setAllQuizzes] = useState([])
-    let [filters, setFilters] = useState([])
+    let [selectedFilters, setSelectedFilters] = useState([])
     let [searchResult, setSearchResult] = useState([])
     let [isLoading, setIsLoading] = useState(true)
 
@@ -31,8 +31,8 @@ function MainPage(){
     }, [])
 
     useEffect(() => {
-        handleSearch(searchBarValue)
-    }, [searchBarValue])
+        handleSearch(searchBarValue, selectedFilters)
+    }, [searchBarValue, selectedFilters])
 
 
     // function to handle search using search bar
@@ -60,9 +60,9 @@ function MainPage(){
     return(<>
             <Navbar></Navbar>
                 <div className="h-[107rem] pt-[7.125rem] flex flex-col items-center">
-                    <SearchBar setSearchBarValue={setSearchBarValue}></SearchBar>
-                    <div className="mt-[80px] flex flex-wrap justify-center gap-18">
-                        {isLoading ? <img src="src/assets/spinner.svg"></img> : (searchBarValue == "" ?
+                    <SearchBar setSearchBarValue={setSearchBarValue} setSelectedFilters={setSelectedFilters} selectedFilters={selectedFilters}></SearchBar>
+                    <div className="mt-[80px] flex flex-wrap justify-center gap-6 md:gap-12 sm:gap-9">
+                        {isLoading ? <img src="src/assets/spinner.svg"></img> : (searchBarValue == "" && selectedFilters.length == 0 ?
                             allQuizzes.map((value) => <Quiz title={value.quizTitle} user={value.userModel} slidesNum={value.slidesNum} Date={value.createdAt} id={value._id} image={value.img}></Quiz>) 
                             : searchResult.map((value) => <Quiz title={value.quizTitle} user={value.userModel} slidesNum={value.slidesNum} Date={value.createdAt} id={value._id} image={value.img}></Quiz>))}
                     </div>

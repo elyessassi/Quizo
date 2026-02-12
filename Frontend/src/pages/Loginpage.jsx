@@ -13,7 +13,7 @@ function LoginPage(){
     return(
         <>
             <Navbar></Navbar>
-            <div className="h-[38.625rem] flex flex-col items-center justify-center">
+            <div className="h-[800px] flex flex-col items-center justify-center">
                 <div className="flex flex-col justify-center items-center">
                     <TextField label={"Email"} value={email} setValue={setEmail}></TextField>
                     <div className="h-[2.625rem]"></div>
